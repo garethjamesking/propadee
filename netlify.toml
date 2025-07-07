@@ -1,10 +1,11 @@
 [build]
-  # Netlify build configuration
-  # If you continue to get "Failed to parse configuration", ensure no hidden characters
-  # were introduced during copy-paste. Sometimes re-typing the file manually helps.
   command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
   functions = "netlify/functions"
   publish = "."
 
 [functions]
-  python_version = "3.10" # Changed to 3.10. Ensure this is a version supported by Netlify.
+  # This is the new, specific way Netlify requires Python version to be defined.
+  # The version is now specified within a nested object under 'functions.python'.
+  # This structure is required even if 'external_node_modules' is not used.
+  [functions.python]
+    version = "3.10" # Specify your desired Python version here (e.g., "3.9", "3.10", "3.11")
