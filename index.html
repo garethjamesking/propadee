@@ -151,7 +151,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*' // Ensure CORS is handled by the function
+                            // REMOVED: 'Access-Control-Allow-Origin': '*' // This header should only be sent by the server in its response
                         },
                         body: JSON.stringify({ event: event })
                     });
