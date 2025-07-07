@@ -1,11 +1,14 @@
-    [build]
-      command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
-      functions = "netlify/functions"
-      publish = "."
+[build]
+  command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
+  functions = "netlify/functions"
+  publish = "."
 
-    [functions]
-      [functions.python]
-        version = "3.10" # Ensure this matches your Python version
-        # Explicitly tell Netlify the main function file for Python
-        main = "main.py"
-    
+[functions]
+  [functions.python]
+    version = "3.10" # Ensure this matches your Python version
+
+# Explicitly define the 'main' function.
+# Netlify will look for a file named 'main.py' in the 'functions' directory.
+[[functions]]
+  name = "main" # This is the name Netlify will use for your function URL (e.g., /.netlify/functions/main)
+  python_handler = "main.main" # This means 'main.py' file, and the 'main' function inside it.
