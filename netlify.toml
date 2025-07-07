@@ -1,8 +1,9 @@
 [build]
-  command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
-  functions = "netlify/functions"
-  publish = "."
+  publish = "." # This tells Netlify to publish the root directory
+  command = "echo 'No build command needed for static site'" # A dummy command
 
 [functions]
-  [functions.python]
-    version = "3.10" # Ensure this matches your Python version
+  directory = "nonexistent-functions-directory" # Point to a directory that doesn't exist
+  # Or, if you want to be explicit about not building functions:
+  # external_node_modules = [] # This can sometimes help prevent function detection
+  # included_files = []
