@@ -6,9 +6,3 @@
 [functions]
   [functions.python]
     version = "3.10" # Ensure this matches your Python version
-
-# Explicitly define the 'generate_news' function handler
-# The format is 'filename.function_name'
-[[functions]]
-  function = "generate_news" # This matches the filename 'generate_news.py'
-  handler = "generate_news.generate_news" # This means 'generate_news.py' and the function 'generate_news' inside it
