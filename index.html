@@ -1,431 +1,178 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>What Does This Mean For Australian Property?</title>
-        <!-- Tailwind CSS CDN -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <!-- Updated to load Roboto with various weights -->
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;900&display=swap" rel="stylesheet">
-        <style>
-            body {
-                font-family: 'Roboto', sans-serif; /* All fonts now Roboto */
-                background-color: #f8f8f8; /* Changed to a light grey background */
-                color: #212121; /* Deep charcoal for print clarity */
-                display: flex;
-                justify-content: center;
-                align-items: flex-start; /* Align to top */
-                min-height: 100vh;
-                padding: 2rem;
-                box-sizing: border-box;
-            }
-            .container {
-                max-width: 950px; /* Slightly wider for newspaper feel */
-                width: 100%;
-                background-color: #ffffff; /* Crisp white for the main content area, like fresh paper */
-                border: 2px solid #333; /* Stronger, classic newspaper border */
-                border-radius: 0; /* Sharp corners, no rounding */
-                box-shadow: 0 8px 15px -5px rgba(0, 0, 0, 0.2); /* More pronounced shadow, like a thick newspaper stack */
-                padding: 3rem 2.5rem; /* More generous padding */
-                box-sizing: border-box;
-            }
-            h1 {
-                font-family: 'Roboto', sans-serif; /* Already Roboto Black 900 */
-                color: #1a1a1a; /* Very dark for masthead */
-                text-align: center;
-                margin-bottom: 2.5rem; /* More space below masthead */
-                font-size: 7.8rem; /* Increased size by 30% */
-                font-weight: 900; /* Ensured 900 for 'Black' */
-                line-height: 1.1;
-                text-transform: uppercase; /* Classic newspaper headline style */
-                border-bottom: 3px double #1a1a1a; /* Double line separator below masthead */
-                padding-bottom: 1rem;
-            }
-            h2 {
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-                color: #333333; /* Darker grey for clear headings */
-                margin-bottom: 1rem;
-                font-size: 2rem; /* Prominent section heading */
-                font-weight: 700;
-                text-align: center;
-                border-bottom: 1px solid #555; /* Subtle separator for sections */
-                padding-bottom: 0.5rem;
-                margin-top: 2rem; /* Space before section headings */
-            }
-            p {
-                line-height: 1.8; /* Increased line height for newspaper readability */
-                margin-bottom: 1.2rem;
-                text-align: justify; /* Justify text like a newspaper column */
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-            }
-            .input-group {
-                margin-bottom: 2rem; /* More spacing */
-                display: flex;
-                flex-direction: column;
-                gap: 0.75rem;
-                border: 1px solid #ddd; /* Subtle border for input section */
-                padding: 1.5rem;
-                background-color: #fcfcfc; /* Slightly lighter background */
-                border-radius: 0;
-            }
-            input[type="text"] {
-                width: 100%;
-                padding: 0.9rem 1.3rem; /* More padding */
-                border: 1px solid #a0a0a0; /* Darker, more definitive border */
-                border-radius: 0; /* Sharp input corners */
-                font-size: 1rem;
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-                transition: all 0.2s ease-in-out;
-                background-color: #fff;
-            }
-            input[type="text"]:focus {
-                outline: none;
-                border-color: #4a4a4a; /* Darker focus border */
-                box-shadow: 0 0 0 1px #4a4a4a; /* Minimal focus shadow */
-            }
-            button {
-                background-color: #4a4a4a; /* Dark grey, authoritative button */
-                color: white;
-                padding: 0.9rem 1.8rem; /* More padding */
-                border: none;
-                border-radius: 0; /* Sharp button corners */
-                font-size: 1.2rem; /* Larger button text */
-                font-weight: 700;
-                cursor: pointer;
-                transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
-                width: fit-content;
-                margin: 0 auto; /* Center-aligned button */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* More visible button shadow */
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-            }
-            button:hover {
-                background-color: #333333; /* Even darker grey on hover */
-                transform: translateY(-2px); /* Slight lift */
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-            }
-            button:disabled {
-                background-color: #cccccc;
-                cursor: not-allowed;
-                box-shadow: none;
-            }
-            .result-section {
-                margin-top: 3rem; /* More space before results */
-                border-top: 2px solid #555; /* Stronger separator for results */
-                padding-top: 2.5rem;
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            /* Styling for generated article elements */
-            .generated-headline {
-                font-family: 'Roboto', sans-serif; /* Already Roboto Black 900 */
-                font-size: 4.5rem;
-                font-weight: 900; /* Ensured 900 for 'Black' */
-                line-height: 1.1;
-                color: #1a1a1a;
-                text-align: center;
-                margin-bottom: 1rem;
-                text-transform: uppercase;
-            }
-            .generated-subheading {
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-                font-size: 1.5rem; /* Medium-sized subheading */
-                font-weight: 400;
-                font-style: italic;
-                color: #333333;
-                text-align: center;
-                margin-bottom: 1.5rem;
-                line-height: 1.4;
-            }
-            .author-byline {
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-                font-size: 1.1rem;
-                color: #555555;
-                text-align: right;
-                margin-top: 1rem;
-                margin-bottom: 2rem;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end; /* Align to right */
-                gap: 0.5rem; /* Space between icon and text */
-            }
-            .generated-story-body {
-                background-color: #fcfcfc; /* Very light background for story content */
-                border-radius: 0;
-                padding: 1.5rem; /* Reduced padding slightly for tighter text */
-                white-space: pre-wrap; /* Preserve whitespace and line breaks */
-                word-wrap: break-word; /* Break long words */
-                font-size: 1.05rem; /* Slightly larger text for readability */
-                color: #333333; /* Dark grey color for story text */
-                min-height: 200px; /* Ensure sufficient height for the story */
-                line-height: 1.7;
-                border: 1px solid #e0e0e0; /* Subtle border for the story box */
-                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05); /* Very subtle inner shadow for depth */
-                columns: 1; /* Force single column */
-                column-gap: 2rem; /* Gap between columns (ignored for single column but good to keep) */
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Prophet</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4f46e5;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .news-article {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .headline {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+        .subheading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+        .story-body p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="container mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Property Prophet</h1>
+        <p class="text-center text-gray-600 mb-8">
+            Your daily dose of optimistic Australian property news, no matter what's happening in the world.
+        </p>
 
-            /* Responsive columns media queries removed */
-            @media (min-width: 768px) {
-                .generated-story-body {
-                    columns: 1; /* Ensure single column on all screens */
-                }
-            }
-            @media (min-width: 1024px) {
-                .generated-story-body {
-                    columns: 1; /* Ensure single column on all screens */
-                }
-            }
-
-            .loading-spinner {
-                border: 4px solid rgba(0, 0, 0, 0.1);
-                border-left-color: #4a4a4a; /* Dark grey spinner */
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                animation: spin 1s linear infinite;
-                margin: 2rem auto; /* Adjusted margin */
-                display: none; /* Hidden by default */
-            }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            .message-box {
-                background-color: #fff8e1; /* Soft yellow for info/warnings */
-                color: #614900; /* Dark brown text */
-                padding: 1.2rem;
-                border-radius: 0; /* Sharp corners */
-                margin-top: 1.5rem;
-                display: none;
-                border: 1px solid #ffecb3; /* Matching border */
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-            }
-            .message-box.active {
-                display: block;
-            }
-            /* Specific message box styles for error/success with newspaper theme */
-            .message-box.bg-ffebe6 { /* Error */
-                background-color: #ffebee;
-                color: #b71c1c;
-                border-color: #ef9a9a;
-            }
-            .message-box.bg-e6f7ff { /* Info */
-                background-color: #e3f2fd;
-                color: #0d47a1;
-                border-color: #90caf9;
-            }
-            .message-box.bg-f6ffed { /* Success */
-                background-color: #e8f5e9;
-                color: #2e7d32;
-                border-color: #a5d6a7;
-            }
-
-            .copy-button {
-                background-color: #1a4d2e; /* A deep, serious green */
-                color: white;
-                padding: 0.8rem 1.6rem; /* More padding */
-                border: none;
-                border-radius: 0; /* Sharp corners */
-                font-size: 1.1rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
-                width: fit-content;
-                margin-top: 1.5rem;
-                align-self: flex-end; /* Align to the right */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-            }
-            .copy-button:hover {
-                background-color: #0f3d23; /* Darker green on hover */
-                box-shadow: 0 55px 10px rgba(0, 0, 0, 0.25);
-            }
-            button:disabled {
-                background-color: #cccccc;
-                cursor: not-allowed;
-                box-shadow: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>What Does This Mean For Australian Property?</h1>
-            
-            <div class="input-group">
-                <label for="currentEvent" class="text-lg font-medium text-gray-700">Enter a current event (e.g., 'P Diddy arrest', 'Global interest rate cuts'):</label>
-                <input type="text" id="currentEvent" placeholder="e.g., P Diddy arrest" class="shadow-sm">
-                <button id="generateStoryButton">Do a journalism!</button>
-            </div>
-
-            <div id="messageBox" class="message-box"></div>
-
-            <div id="results" class="result-section hidden">
-                <div id="generatedHeadline" class="generated-headline"></div>
-                <div id="generatedSubheading" class="generated-subheading"></div>
-                
-                <div id="authorByline" class="author-byline">
-                    By The Property Prophet
-                </div>
-
-                <div id="generatedStoryBody" class="generated-story-body"></div>
-                <button id="copyButton" disabled>Copy Story</button>
-            </div>
-
-            <div id="loadingSpinner" class="loading-spinner"></div>
+        <div class="mb-6">
+            <label for="eventInput" class="block text-gray-700 text-sm font-bold mb-2">
+                What's the latest event?
+            </label>
+            <input type="text" id="eventInput" placeholder="e.g., Global stock market dip, Interest rate hike, New government policy"
+                   class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
         </div>
 
-        <script type="module">
-            const currentEventInput = document.getElementById('currentEvent');
-            const generateStoryButton = document.getElementById('generateStoryButton');
-            const generatedHeadlineDiv = document.getElementById('generatedHeadline');
-            const generatedSubheadingDiv = document.getElementById('generatedSubheading');
-            const generatedStoryBodyDiv = document.getElementById('generatedStoryBody');
-            const resultsSection = document.getElementById('results');
+        <div class="flex items-center justify-center mb-8">
+            <button id="generateNewsBtn" class="btn-primary flex items-center justify-center">
+                Do a journalism!
+                <span id="loadingSpinner" class="loading-spinner hidden"></span>
+            </button>
+        </div>
+
+        <div id="newsOutput" class="news-article hidden">
+            <h2 id="newsHeadline" class="headline"></h2>
+            <h3 id="newsSubheading" class="subheading"></h3>
+            <div id="newsStoryBody" class="story-body"></div>
+        </div>
+
+        <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline" id="errorText"></span>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANT: Replace this with your actual Google Cloud Function URL
+        // Example: "https://australia-southeast1-your-project-id.cloudfunctions.net/your-function-name"
+        const cloudFunctionUrl = "https://australia-southeast1-propertyprophetfunction.cloudfunctions.net/property-prophet-generator"; // Placeholder
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventInput = document.getElementById('eventInput');
+            const generateNewsBtn = document.getElementById('generateNewsBtn');
             const loadingSpinner = document.getElementById('loadingSpinner');
-            const messageBox = document.getElementById('messageBox');
-            const copyButton = document.getElementById('copyButton');
-            const authorByline = document.getElementById('authorByline');
+            const newsOutput = document.getElementById('newsOutput');
+            const newsHeadline = document.getElementById('newsHeadline');
+            const newsSubheading = document.getElementById('newsSubheading');
+            const newsStoryBody = document.getElementById('newsStoryBody');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
 
-            // IMPORTANT: Replace "https://placeholder-url.netlify.app/.netlify/functions/generate_news"
-            // with the ACTUAL URL of your deployed Netlify Function.
-            const cloudFunctionUrl = const cloudFunctionUrl = "https://australia-southeast1-propertyprophetfunction.cloudfunctions.net/property-prophet-generator";
-
-            /**
-             * Displays a message to the user in a styled box.
-             * @param {string} message - The message to display.
-             * @param {string} type - The type of message ('error', 'info', 'success').
-             */
-            function showMessage(message, type = 'info') {
-                messageBox.textContent = message;
-                messageBox.classList.remove('active');
-                messageBox.classList.remove('bg-ffebe6', 'text-c53030', 'bg-e6f7ff', 'text-1890ff', 'bg-f6ffed', 'text-52c41a');
-
-                if (type === 'error') {
-                    messageBox.classList.add('bg-ffebe6', 'text-c53030');
-                } else if (type === 'info') {
-                    messageBox.classList.add('bg-e6f7ff', 'text-1890ff');
-                } else if (type === 'success') {
-                    messageBox.classList.add('bg-f6ffed', 'text-52c41a');
-                }
-                messageBox.classList.add('active');
+            // Function to show error message
+            function showErrorMessage(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+                newsOutput.classList.add('hidden'); // Hide news if error occurs
             }
 
-            /**
-             * Clears any displayed messages.
-             */
-            function clearMessage() {
-                messageBox.textContent = '';
-                messageBox.classList.remove('active');
+            // Function to hide error message
+            function hideErrorMessage() {
+                errorMessage.classList.add('hidden');
+                errorText.textContent = '';
             }
 
-            /**
-             * Handles the generation of the news story by calling the Netlify Function.
-             */
-            async function generateStory() {
-                // Check if the URL is still the placeholder before attempting fetch
-                if (cloudFunctionUrl.includes("placeholder-url.netlify.app")) {
-                    showMessage('Please update the "cloudFunctionUrl" in the JavaScript code with your actual Netlify Function URL first.', 'error');
-                    return; // Stop execution if URL is not set
-                }
-
-                clearMessage();
-                resultsSection.classList.add('hidden');
-                generatedHeadlineDiv.textContent = '';
-                generatedSubheadingDiv.textContent = '';
-                generatedStoryBodyDiv.textContent = '';
-                copyButton.disabled = true;
-
-                const eventText = currentEventInput.value.trim();
-
-                if (!eventText) {
-                    showMessage('Please enter a current event to generate a story.', 'info');
+            generateNewsBtn.addEventListener('click', async () => {
+                const event = eventInput.value.trim();
+                if (!event) {
+                    showErrorMessage("Please enter an event to generate news.");
                     return;
                 }
 
-                // Show loading spinner and disable button
-                loadingSpinner.style.display = 'block';
-                generateStoryButton.disabled = true;
+                // Clear previous output and error
+                newsOutput.classList.add('hidden');
+                hideErrorMessage();
+                loadingSpinner.classList.remove('hidden');
+                generateNewsBtn.disabled = true; // Disable button during loading
 
                 try {
-                    // This is the fetch call that will go to your Netlify Function
-                    const payload = { event: eventText }; // Send the event text to your function
-                    const response = await fetch(cloudFunctionUrl, { // Use the cloudFunctionUrl here
+                    const response = await fetch(cloudFunctionUrl, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*' // Ensure CORS is handled by the function
+                        },
+                        body: JSON.stringify({ event: event })
                     });
 
                     if (!response.ok) {
                         const errorData = await response.json();
-                        throw new Error(`Server error: ${response.status} - ${errorData.message || response.statusText}`);
+                        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
                     }
 
-                    const result = await response.json();
+                    const data = await response.json();
 
-                    if (result.headline && result.subheading && result.storyBody) {
-                        generatedHeadlineDiv.textContent = result.headline;
-                        generatedSubheadingDiv.textContent = result.subheading;
-                        generatedStoryBodyDiv.textContent = result.storyBody;
-                        
-                        resultsSection.classList.remove('hidden');
-                        copyButton.disabled = false;
-                    } else {
-                        showMessage('Failed to generate story. The AI did not return expected content. Please try a different event.', 'error');
-                    }
+                    newsHeadline.textContent = data.headline;
+                    newsSubheading.textContent = data.subheading;
+                    // Split story body into paragraphs and create <p> tags
+                    newsStoryBody.innerHTML = data.storyBody.split('\n\n').map(p => `<p>${p}</p>`).join('');
+
+                    newsOutput.classList.remove('hidden');
 
                 } catch (error) {
-                    console.error("Error generating story:", error);
-                    showMessage(`An error occurred: ${error.message}. Please check your Netlify Function deployment and URL.`, 'error');
+                    console.error('Error fetching news:', error);
+                    showErrorMessage(`Failed to generate news: ${error.message}`);
                 } finally {
-                    loadingSpinner.style.display = 'none';
-                    generateStoryButton.disabled = false;
+                    loadingSpinner.classList.add('hidden');
+                    generateNewsBtn.disabled = false; // Re-enable button
                 }
-            }
-
-            /**
-             * Copies the combined generated story content to the clipboard.
-             */
-            function copyToClipboard() {
-                const textToCopy = 
-                    generatedHeadlineDiv.textContent + '\n\n' +
-                    generatedSubheadingDiv.textContent + '\n\n' +
-                    (authorByline.textContent || '') + '\n\n' + // Include byline in copy
-                    generatedStoryBodyDiv.textContent;
-
-                if (textToCopy.trim()) {
-                    // Use document.execCommand for better compatibility within iframes
-                    const textarea = document.createElement('textarea');
-                    textarea.value = textToCopy;
-                    textarea.style.position = 'fixed'; // Avoid scrolling to bottom
-                    textarea.style.opacity = 0; // Hide the textarea
-                    document.body.appendChild(textarea);
-                    textarea.focus();
-                    textarea.select();
-                    try {
-                        const successful = document.execCommand('copy');
-                        if (successful) {
-                            showMessage('Story copied to clipboard!', 'success');
-                        } else {
-                            throw new Error('Failed to copy text.');
-                        }
-                    } catch (err) {
-                        console.error('Failed to copy text: ', err);
-                        showMessage('Could not copy story. Please manually copy the text.', 'error');
-                    } finally {
-                        document.body.removeChild(textarea);
-                    }
-                } else {
-                    showMessage('Nothing to copy yet. Generate a story first.', 'info');
-                }
-            }
-
-            // Event Listeners
-            generateStoryButton.addEventListener('click', generateStory);
-            copyButton.addEventListener('click', copyToClipboard);
-        </script>
-    </body>
-    </html>
-    
+            });
+        });
+    </script>
+</body>
+</html>
