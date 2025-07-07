@@ -134,6 +134,12 @@
                     return;
                 }
 
+                // Check if the URL is still the placeholder before attempting fetch
+                if (cloudFunctionUrl.includes("YOUR_GOOGLE_CLOUD_FUNCTION_URL_HERE")) {
+                    showErrorMessage('Please update the "cloudFunctionUrl" in the JavaScript code with your actual Google Cloud Function URL first.');
+                    return; // Stop execution if URL is not set
+                }
+
                 // Clear previous output and error
                 newsOutput.classList.add('hidden');
                 hideErrorMessage();
