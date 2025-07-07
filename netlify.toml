@@ -4,8 +4,11 @@
   publish = "."
 
 [functions]
-  # This is the new, specific way Netlify requires Python version to be defined.
-  # The version is now specified within a nested object under 'functions.python'.
-  # This structure is required even if 'external_node_modules' is not used.
   [functions.python]
-    version = "3.10" # Specify your desired Python version here (e.g., "3.9", "3.10", "3.11")
+    version = "3.10" # Ensure this matches your Python version
+
+# Explicitly define the 'generate_news' function handler
+# The format is 'filename.function_name'
+[[functions]]
+  function = "generate_news" # This matches the filename 'generate_news.py'
+  handler = "generate_news.generate_news" # This means 'generate_news.py' and the function 'generate_news' inside it
