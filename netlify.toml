@@ -1,9 +1,9 @@
     [build]
-      # This command explicitly installs Python dependencies for functions
+      # Netlify build configuration
       command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
       functions = "netlify/functions"
       publish = "."
 
     [functions]
-      python_version = "3.9" # Or "3.10", "3.11" - choose one supported by Netlify
+      python_version = "3.9" # Specify Python version for Netlify Functions
     
