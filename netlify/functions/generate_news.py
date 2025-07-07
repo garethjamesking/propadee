@@ -77,8 +77,8 @@
                     gemini_response = model.generate_content(
                         text_prompt,
                         generation_config=genai.types.GenerationConfig(
-                            temperature: 1.0,
-                            max_output_tokens: 700,
+                            temperature=1.0,
+                            max_output_tokens=700,
                         )
                     )
                     full_generated_text = gemini_response.candidates[0].content.parts[0].text
