@@ -1,8 +1,11 @@
-[build]
-  command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
-  functions = "netlify/functions"
-  publish = "."
+    [build]
+      command = "echo 'Installing Python dependencies...' && python3 -m pip install -r netlify/functions/requirements.txt --target=./.netlify/functions/ && echo 'Dependencies installed.'"
+      functions = "netlify/functions"
+      publish = "."
 
-[functions]
-  [functions.python]
-    version = "3.10" # Ensure this matches your Python version
+    [functions]
+      [functions.python]
+        version = "3.10" # Ensure this matches your Python version
+        # Explicitly tell Netlify the main function file for Python
+        main = "main.py"
+    
